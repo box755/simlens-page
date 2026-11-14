@@ -5,10 +5,11 @@
 
 /* ---------- 1. sizing ---------- */
 
-/* Bulma fixes the root at 16px. On large monitors that makes a 960px page look tiny,
-   so the whole page (text, spacing, chart) steps up with the screen. */
-@media (min-width: 1408px) { html { font-size: 18px; } }
-@media (min-width: 1900px) { html { font-size: 20px; } }
+/* Bulma fixes the root at 16px. On desktop screens the whole page (text, spacing, figures,
+   chart) follows the window width instead, so it keeps the same proportions everywhere:
+   15px up to a 1920px-wide window, growing evenly to 20px at 2560px (0.78125vw = 20/2560).
+   Phones and tablets keep Bulma's 16px. */
+@media (min-width: 1024px) { html { font-size: clamp(15px, 0.78125vw, 20px); } }
 
 /* text column: wider than the template's 960px and proportional to the text size */
 .container.is-max-desktop { max-width: 62rem; }

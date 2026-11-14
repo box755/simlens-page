@@ -51,7 +51,7 @@ git push
 |---|---|
 | Paper, arXiv and code links | The three buttons under the authors. Add `href` and `target="_blank"`, then delete `disabled`, `title` and the "(soon)" text. |
 | Talk video | The commented "Video presentation" block near the bottom. Uncomment it and set the YouTube video ID. |
-| Text and figure sizes | The "sizing" block at the top of `static/css/demo.css`. The root font size steps up at 1408px and 1900px screen widths, and everything else follows it. |
+| Text and figure sizes | The "sizing" block at the top of `static/css/demo.css`. The root font size follows the window width (15px up to 1920px, growing evenly to 20px at 2560px), and everything else follows it. |
 
 Other template building blocks (image carousel, video carousel, poster viewer) are
 described in the template's own README and can be pasted back in.
