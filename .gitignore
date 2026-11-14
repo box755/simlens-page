@@ -1,0 +1,3 @@
+# local helpers that read the private research workspace; not part of the site
+tools/
+preview.bat

@@ -1,0 +1,149 @@
+/* Additions to the Academic Project Page Template (original version) for the SIMLENS page.
+   Fonts and colours come from Bulma and the template. This file only adds:
+   1. sizing: larger type and figures, growing with the screen;
+   2. the replay-curve demo. */
+
+/* ---------- 1. sizing ---------- */
+
+/* Bulma fixes the root at 16px. On large monitors that makes a 960px page look tiny,
+   so the whole page (text, spacing, chart) steps up with the screen. */
+@media (min-width: 1408px) { html { font-size: 18px; } }
+@media (min-width: 1900px) { html { font-size: 20px; } }
+
+/* text column: wider than the template's 960px and proportional to the text size */
+.container.is-max-desktop { max-width: 62rem; }
+
+/* figures: Nerfies-style wide media */
+.hero.teaser .container.wide-media { max-width: 66rem; }   /* selector outranks Bulma's 1344px cap */
+.teaser img { display: block; width: 100%; height: auto; }
+.method-item { width: 64rem; max-width: 100%; padding: 0 1.5rem; }
+.method-item img { display: block; width: 100%; height: auto; }
+
+/* titles: larger and darker */
+.publication-title { color: #0a0a0a; font-weight: 700; }
+.title.is-3, .hero.is-light .title.is-3, #BibTeX .title { color: #0a0a0a; }
+.title.is-3 { font-size: 2.25rem; }
+
+/* body text */
+.publication-authors.is-size-5 { font-size: 1.35rem !important; }
+.teaser .subtitle { font-size: 1.4rem; line-height: 1.45; }
+.content.has-text-justified p, .demo-lede { font-size: 1.2rem; line-height: 1.7; }
+.content pre { font-size: 1rem; }
+.footer .content { font-size: 1rem; }
+.button.is-normal { font-size: 1.05rem; }
+
+/* ---------- 2. replay-curve demo ---------- */
+.demo {
+  /* series colours, checked for colour-blind separation as a set */
+  --s-gt: #898781;
+  --gt-wash: rgba(137, 135, 129, 0.17);
+  --s-simlens: #e34948;
+  --s-noaudio: #2a78d6;
+  --s-baseline: #008300;
+  --d-ink: #363636;      /* Bulma strong text */
+  --d-ink2: #4a4a4a;     /* Bulma body text */
+  --d-muted: #7a7a7a;
+  --d-grid: #e6e6e6;
+  --d-axis: #c4c4c4;
+  --d-surface: #ffffff;
+  --d-link: #3273dc;     /* Bulma link */
+  margin-top: 1.5rem;
+}
+.demo-lede { margin-bottom: 0; }
+
+.demo-thumbs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .9rem; }
+.demo-thumb { padding: 0; border: 0; background: none; cursor: pointer; text-align: left; font: inherit; color: inherit; }
+.demo-thumb img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; background: #eee; opacity: .75; transition: opacity .15s; }
+.demo-thumb:hover img, .demo-thumb[aria-pressed="true"] img { opacity: 1; }
+.demo-thumb[aria-pressed="true"] img { outline: 3px solid var(--d-link); outline-offset: 2px; }
+.demo-thumb span { display: block; padding: .4rem .15rem 0; font-size: .9rem; line-height: 1.3; color: var(--d-ink2); }
+.demo-thumb:focus-visible { outline: 2px solid var(--d-link); outline-offset: 4px; border-radius: 6px; }
+
+.demo-now { margin: 1.4rem 0 .6rem; line-height: 1.4; font-size: 1.15rem; }
+.demo-now span { margin-left: .6rem; font-size: 1rem; }
+
+.demo-player { position: relative; aspect-ratio: 16 / 9; width: 100%; background: #000; border-radius: 10px; overflow: hidden; }
+.demo-player iframe, .demo-player .facade, .demo-player .facade img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.demo-player .facade { padding: 0; cursor: pointer; background: #000; }
+.demo-player .facade img { object-fit: cover; opacity: .9; transition: opacity .15s; }
+.demo-player .facade:hover img { opacity: 1; }
+.demo-player .play { position: absolute; left: 50%; top: 50%; width: 4.5rem; height: 4.5rem; margin: -2.25rem 0 0 -2.25rem; border-radius: 50%; background: rgba(10, 10, 10, .72); display: grid; place-items: center; }
+.demo-player .play svg { width: 1.7rem; height: 1.7rem; margin-left: .25rem; fill: #fff; }
+.demo-player .msg { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: #f5f5f5; background: rgba(10, 10, 10, .88); }
+.demo-player .msg a { color: #fff; text-decoration: underline; }
+
+/* curve selectors: tag-style chips. The first two are always on; the last two toggle. */
+.demo-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: 1.2rem 0 .7rem; }
+.demo-chip { position: relative; display: inline-flex; align-items: center; gap: .5em; height: 2.3em; padding: 0 1em; border: 1.5px solid #dbdbdb; border-radius: 9999px; background: #fff; color: var(--d-muted); font-size: 1.05rem; line-height: 1; white-space: nowrap; cursor: pointer; user-select: none; transition: background-color .12s, border-color .12s, color .12s; }
+.demo-chip input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.demo-chip i { display: inline-block; width: 1.2em; height: 0; border-top: 2.5px solid var(--c, var(--d-muted)); border-radius: 2px; opacity: .4; }
+.demo-chip i.area-key { width: .85em; height: .65em; border-top: 2px solid var(--s-gt); background: var(--gt-wash); border-radius: 0; }
+.demo-chip:hover { border-color: #b5b5b5; color: var(--d-ink2); }
+.demo-chip.is-fixed, .demo-chip:has(input:checked) { border-color: var(--c); background: color-mix(in srgb, var(--c) 9%, #fff); color: #0a0a0a; font-weight: 600; }
+.demo-chip.is-fixed i, .demo-chip:has(input:checked) i { opacity: 1; }
+.demo-chip.is-fixed { cursor: default; }
+.demo-chip:has(input:focus-visible) { outline: 2px solid var(--d-link); outline-offset: 2px; }
+.demo-chip:has(input:disabled) { opacity: .4; cursor: not-allowed; }
+.demo-chip:has(input:disabled) input { cursor: not-allowed; }
+
+.demo-chart-wrap { position: relative; }
+.demo-chart { display: block; width: 100%; overflow: visible; touch-action: pan-y; }
+.demo-chart:focus-visible { outline: 2px solid var(--d-link); outline-offset: 4px; border-radius: 6px; }
+.demo-chart text { font-family: inherit; font-size: .8rem; fill: var(--d-muted); font-variant-numeric: tabular-nums; }
+.demo-chart .gridline { stroke: var(--d-grid); stroke-width: 1; shape-rendering: crispEdges; }
+.demo-chart .axisline { stroke: var(--d-axis); stroke-width: 1; shape-rendering: crispEdges; }
+.demo-chart .line { fill: none; stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
+.demo-chart .gt-line { fill: none; stroke: var(--s-gt); stroke-width: 1.5; stroke-linejoin: round; }
+.demo-chart .gt-area { fill: var(--gt-wash); stroke: none; }
+.demo-chart .s-simlens { stroke: var(--s-simlens); } .demo-chart .f-simlens { fill: var(--s-simlens); }
+.demo-chart .s-noaudio { stroke: var(--s-noaudio); } .demo-chart .f-noaudio { fill: var(--s-noaudio); }
+.demo-chart .s-baseline { stroke: var(--s-baseline); } .demo-chart .f-baseline { fill: var(--s-baseline); }
+.demo-chart .s-gt { stroke: var(--s-gt); } .demo-chart .f-gt { fill: var(--s-gt); }
+.demo-chart .dot { stroke: var(--d-surface); stroke-width: 2; }
+.demo-chart .endlabel { fill: var(--d-ink2); font-size: .82rem; }
+.demo-chart .leader { fill: none; stroke-width: 1; opacity: .7; }
+.demo-chart .cross { stroke: var(--d-ink2); stroke-width: 1; shape-rendering: crispEdges; }
+.demo-chart .playhead { stroke: var(--d-ink); stroke-width: 1.5; }
+.demo-chart .playhead-tag rect { fill: var(--d-ink); }
+.demo-chart .playhead-tag text { fill: #fff; font-weight: 600; font-size: .72rem; }
+.demo-chart .hit { fill: transparent; cursor: pointer; }
+
+.demo-tip { position: absolute; z-index: 5; pointer-events: none; min-width: 10rem; padding: .5rem .65rem; background: #fff; border: 1px solid #dbdbdb; border-radius: 6px; box-shadow: 0 4px 14px rgba(10, 10, 10, .12); font-size: .88rem; line-height: 1.45; opacity: 0; transition: opacity .08s; }
+.demo-tip.on { opacity: 1; }
+.demo-tip .tt-h { font-weight: 700; color: var(--d-ink); margin-bottom: 3px; }
+.demo-tip .tt-r { display: grid; grid-template-columns: 1.1rem auto 1fr; align-items: center; gap: .4rem; white-space: nowrap; }
+.demo-tip .tt-r i { width: 1rem; border-top: 2px solid var(--c, var(--d-muted)); }
+.demo-tip .tt-r b { color: var(--d-ink); font-variant-numeric: tabular-nums; }
+.demo-tip .tt-f { margin-top: 4px; font-size: .8rem; color: var(--d-muted); }
+
+.demo-rho { margin: .6rem 0 0; font-size: 1.1rem; min-height: 1.6em; }
+.demo-rho b { color: var(--d-ink); font-variant-numeric: tabular-nums; }
+.demo-rho .sep { margin: 0 .7rem; color: #c4c4c4; }
+.demo-table { margin-top: .6rem; font-size: 1rem; }
+.demo-table summary { cursor: pointer; width: fit-content; }
+.demo-table .table-container { max-height: 18rem; overflow: auto; margin-top: .5rem; }
+.demo-table table { font-size: .9rem; font-variant-numeric: tabular-nums; }
+.demo-table th, .demo-table td { text-align: right; white-space: nowrap; }
+.demo-table th:first-child, .demo-table td:first-child { text-align: left; }
+.demo-note { margin-top: .9rem; font-size: 1rem; line-height: 1.55; color: var(--d-muted); }
+
+/* ---------- phones ---------- */
+@media (max-width: 768px) {
+  .publication-title.is-1 { font-size: 2.1rem; }
+  .title.is-3 { font-size: 1.8rem; }
+  .publication-authors.is-size-5 { font-size: 1.15rem !important; }
+  .teaser .subtitle { font-size: 1.15rem; }
+  .content.has-text-justified p, .demo-lede { font-size: 1.05rem; }
+  .demo-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .demo-now span { display: block; margin-left: 0; }
+  .demo-chip { font-size: .95rem; }
+  .demo-rho { font-size: 1rem; }
+  .method-item { padding: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-thumb img, .demo-player .facade img, .demo-tip, .demo-chip { transition: none; }
+}
+
+/* footer credit on a single centred line (it may wrap on phones) */
+.footer-credit { text-align: center; white-space: nowrap; }
+@media (max-width: 960px) { .footer-credit { white-space: normal; } }

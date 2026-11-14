@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SIMLENS predicts a video's per-second YouTube Most Replayed curve from its frames and audio with an adapted audio-visual LLM. 77.5 mAP@50 on Mr.HiSum. WACV 2027.">
+  <meta name="keywords" content="video engagement prediction, Most Replayed, highlight detection, audio-visual LLM, multimodal LLM, Mr.HiSum, Qwen2.5-Omni, LoRA, listwise ranking">
+  <meta name="author" content="Ren-Siang Wei, Sheng-You Fu, Yen-Liang Chen">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="SIMLENS: Sound-Informed Multimodal LLMs for Full-Curve Video Engagement Prediction">
+  <meta property="og:description" content="Predict which seconds of a video viewers will replay, and which they will skip, before it is published.">
+  <meta property="og:url" content="https://box755.github.io/simlens-page/">
+  <meta property="og:image" content="https://box755.github.io/simlens-page/static/images/social_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SIMLENS: Sound-Informed Multimodal LLMs for Full-Curve Video Engagement Prediction">
+  <meta name="twitter:description" content="Predict which seconds of a video viewers will replay, and which they will skip, before it is published.">
+  <meta name="twitter:image" content="https://box755.github.io/simlens-page/static/images/social_preview.png">
+
+  <meta name="citation_title" content="SIMLENS: Sound-Informed Multimodal LLMs for Full-Curve Video Engagement Prediction">
+  <meta name="citation_author" content="Wei, Ren-Siang">
+  <meta name="citation_author" content="Fu, Sheng-You">
+  <meta name="citation_author" content="Chen, Yen-Liang">
+  <meta name="citation_publication_date" content="2027">
+  <meta name="citation_conference_title" content="IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)">
+  <!-- TODO: add when the PDF is public: <meta name="citation_pdf_url" content="..."> -->
+
+  <link rel="canonical" href="https://box755.github.io/simlens-page/">
+  <title>SIMLENS: Full-Curve Video Engagement Prediction</title>
+  <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/demo.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <!-- Replay-curve demo: data first, then the script that draws it -->
+  <script defer src="static/js/examples.js"></script>
+  <script defer src="static/js/demo.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">SIMLENS: Sound-Informed Multimodal LLMs for Full-Curve Video Engagement Prediction</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">Ren-Siang Wei<sup>*</sup>,</span>
+              <span class="author-block">Sheng-You Fu<sup>*</sup>,</span>
+              <span class="author-block">Yen-Liang Chen<sup>&dagger;</sup></span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Department of Information Management, National Central University<br>WACV 2027</span>
+              <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution &nbsp; <sup>&dagger;</sup>Corresponding Author</small></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- TODO: when a link is ready, put it in href, add target="_blank", and delete the
+                     "disabled" attribute, the title attribute and the "(soon)" text of that button. -->
+                <span class="link-block">
+                  <a class="external-link button is-normal is-rounded is-dark" disabled title="Coming soon">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper (soon)</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a class="external-link button is-normal is-rounded is-dark" disabled title="Coming soon">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv (soon)</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a class="external-link button is-normal is-rounded is-dark" disabled title="Coming soon">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code (soon)</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Teaser image -->
+<section class="hero teaser">
+  <div class="container wide-media">
+    <div class="hero-body">
+      <img src="static/images/qualitative.png" width="2000" height="1083" alt="Replay curves for one test video: the actual Most Replayed curve, the SIMLENS prediction, SIMLENS without audio and a baseline, shown above the video frames and the audio spectrogram.">
+      <h2 class="subtitle has-text-centered">
+        SIMLENS predicts a video's per-second Most Replayed curve from its frames and soundtrack, including the moments viewers skip, before the video is published.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser image -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            YouTube's Most Replayed curve captures relative replay intensity across a video, but becomes available only after publication. We introduce SIMLENS to predict this curve in advance, capturing both frequently replayed moments and low-replay regions. SIMLENS adapts a pretrained audio-visual large language model by grouping visual and audio tokens into one-second blocks and appending per-second queries after the complete content sequence, allowing every prediction to use full-video context. A bidirectional listwise objective learns per-second rankings from both the high- and low-replay ends of the curve. On Mr.HiSum, SIMLENS reaches 77.5 mAP@50 and a per-video Spearman correlation of 0.527 while adapting only 0.11% of the model parameters. To the best of our knowledge, SIMLENS achieves state-of-the-art performance on this benchmark, with an 11.1-point mAP@50 improvement over the strongest baseline evaluated on the same test subset. Controlled ablations evaluate the contributions of audio, suffix-query readout, and listwise supervision. The same checkpoints generalize without additional tuning to YTMR500 and our new YT-Fresh benchmark of 1,230 recent videos. These results demonstrate the potential of audio-visual models to anticipate replay patterns and provide creators with feedback before publication.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Method -->
+<section class="hero is-small" id="method">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Method</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="item method-item">
+          <a href="static/images/method.png" target="_blank" rel="noopener"><img src="static/images/method.png" width="1000" loading="lazy" alt="Architecture of SIMLENS: frozen vision and audio encoders feed interleaved one-second token blocks into the Qwen2.5-Omni Thinker decoder with LoRA adapters; suffix queries appended after the content are mapped by a linear layer to per-second scores and trained with a bidirectional listwise loss."></a>
+        </div>
+      </div>
+    </div>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <div class="content has-text-justified">
+            <p>
+              Frozen visual and audio encoders produce tokens that are interleaved in one-second blocks. The decoder of Qwen2.5-Omni, adapted with LoRA, reads the complete video followed by one suffix query per second, so every query can use the whole video, and a linear head maps each query to a replay score. A bidirectional listwise loss learns the ordering of seconds from both the most-replayed and the least-replayed end of the curve, and a first-difference term preserves local changes. Only 0.11% of the parameters are trained, and the full curve comes out of a single forward pass.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End method -->
+
+
+<!-- Replay-curve demo -->
+<section class="hero is-small" id="demo">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Predicted and Actual Replay Curves</h2>
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <p class="demo-lede has-text-centered">Pick a video and press play. The marker moves along the curves in step with the video, and clicking the chart jumps to that moment.</p>
+
+          <div class="demo" id="simlens-demo">
+            <div class="demo-thumbs" id="demo-thumbs" role="group" aria-label="Example videos"></div>
+
+            <p class="demo-now"><strong id="demo-title"></strong><span id="demo-meta"></span></p>
+            <div class="demo-player" id="demo-player"></div>
+
+            <div class="demo-controls" role="group" aria-label="Curves to show">
+              <span class="demo-chip is-fixed" style="--c:var(--s-gt)"><i class="area-key"></i>Actual replay</span>
+              <span class="demo-chip is-fixed" style="--c:var(--s-simlens)"><i></i>SIMLENS</span>
+              <label class="demo-chip" style="--c:var(--s-noaudio)"><input type="checkbox" id="demo-noaudio"><i></i>SIMLENS without audio</label>
+              <label class="demo-chip" style="--c:var(--s-baseline)"><input type="checkbox" id="demo-baseline"><i></i>Baseline</label>
+            </div>
+
+            <div class="demo-chart-wrap">
+              <svg class="demo-chart" id="demo-chart" role="img" tabindex="0" aria-label="Actual and predicted replay curves over time. Use the arrow keys to move along the curve and Enter to play from that second."></svg>
+              <div class="demo-tip" id="demo-tip" role="status"></div>
+            </div>
+
+            <p class="demo-rho" id="demo-rho"></p>
+            <details class="demo-table" id="demo-table"><summary>Show the curves as a table</summary><div class="table-container"></div></details>
+            <p class="demo-note">Curves are standardised within each video, so only their shape matters. Predictions are shown as a 5-second moving average. &rho; is the Spearman correlation with the actual curve, computed on the raw per-second scores of one checkpoint (seed 42). These examples are hand-picked; results over all test videos are in the paper.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End replay-curve demo -->
+
+<!-- Video presentation: uncomment and set the YouTube video ID once the talk is online.
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Video Presentation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@inproceedings{wei2027simlens,
+  title     = {{SIMLENS}: Sound-Informed Multimodal {LLMs} for Full-Curve Video Engagement Prediction},
+  author    = {Wei, Ren-Siang and Fu, Sheng-You and Chen, Yen-Liang},
+  booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  year      = {2027}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="content">
+      <p class="footer-credit">
+        This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+      </p>
+    </div>
+  </div>
+</footer>
+
+  </body>
+  </html>
